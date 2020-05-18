@@ -26,7 +26,7 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
     public GateView(Gate gate) {
 
-        super(400, 220);
+        super();
 
         this.gate = gate;
 
@@ -46,16 +46,16 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
         if (gate.getInputSize() == 1) {
 
-            add(inputA, 85, 115, 20, 20);
+            add(inputA, 115, 20);
 
         } else if (gate.getInputSize() == 2) {
-            add(inputA, 85, 92, 20, 20);
-            add(inputB, 85, 138, 20, 20);
+            add(inputA, 92, 20);
+            add(inputB, 138, 20);
 
-        } else{
-            add(inputA, 85, 92, 20, 20);
-            add(inputB, 85, 115, 20, 20);
-            add(inputC, 85, 138, 20, 20);
+        } else {
+            add(inputA, 92, 20);
+            add(inputB, 115, 20);
+            add(inputC, 138, 20);
         }
 
         String name = gate.toString() + ".png";
@@ -98,7 +98,7 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         } else if (gate.getInputSize() == 2) {
             gate.connect(0, sinalA);
             gate.connect(1, sinalB);
-        } else{
+        } else {
             gate.connect(0, sinalA);
             gate.connect(1, sinalB);
             gate.connect(2, sinalC);
