@@ -17,9 +17,10 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
     private final JCheckBox inputA;
     private final JCheckBox inputB;
-    //private final JCheckBox output;
+    private final JCheckBox inputC;
     private final Switch sinalA;
     private final Switch sinalB;
+    private final Switch sinalC;
     private final Light light;
     private final Image image;
 
@@ -31,10 +32,11 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
         inputA = new JCheckBox("A");
         inputB = new JCheckBox("B");
-        //output = new JCheckBox("Output");
+        inputC = new JCheckBox("C");
 
         sinalA = new Switch();
         sinalB = new Switch();
+        sinalC = new Switch();
 
         light = new Light(255, 0, 0);
 
@@ -43,16 +45,17 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         //JLabel saida = new JLabel(" :Saída");
 
         if (gate.getInputSize() == 1) {
-            //add(entrada, 10, 115, 75, 25);
+
             add(inputA, 85, 115, 20, 20);
-            //add(saida, 315, 115, 75,25);
-            //add(output, 252, 115, 20, 20);
-        } else {
-            //add(entrada, 10, 115, 75, 25);
+
+        } else if (gate.getInputSize() == 2) {
             add(inputA, 85, 92, 20, 20);
             add(inputB, 85, 138, 20, 20);
-            //add(saida, 315, 115, 75, 25);
-            //add(output, 252, 115, 20, 20);
+
+        } else{
+            add(inputA, 85, 92, 20, 20);
+            add(inputB, 85, 115, 20, 20);
+            add(inputC, 85, 138, 20, 20);
         }
 
         String name = gate.toString() + ".png";
@@ -61,6 +64,7 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
         inputA.addActionListener(this);
         inputB.addActionListener(this);
+        inputC.addActionListener(this);
 
         //output.setEnabled(false);
 
@@ -83,11 +87,21 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
             sinalB.turnOff();
         }
 
+        if (inputC.isSelected()) {
+            sinalC.turnOn();
+        } else {
+            sinalC.turnOff();
+        }
+
         if (gate.getInputSize() == 1) {
             gate.connect(0, sinalA);
-        } else {
+        } else if (gate.getInputSize() == 2) {
             gate.connect(0, sinalA);
             gate.connect(1, sinalB);
+        } else{
+            gate.connect(0, sinalA);
+            gate.connect(1, sinalB);
+            gate.connect(2, sinalC);
         }
 
         light.connect(0, gate);
